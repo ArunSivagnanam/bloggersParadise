@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DbModelContext-Web.config Connection String" description="DbModelContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=10.0.4.10;Initial Catalog=BloggersParadise2; User Id=admin; Password=Bloggersparadise!;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\krj\\documents\\visual\ studio\ 2013\\Projects\\eManger\\eManager\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DbModelContext']/@connectionString" />
+  </parameter>
+</parameters>

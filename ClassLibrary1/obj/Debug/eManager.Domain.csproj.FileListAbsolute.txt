@@ -1,0 +1,8 @@
+C:\Users\krj\Documents\Visual Studio 2013\Projects\eManger\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\Users\krj\Documents\Visual Studio 2013\Projects\eManger\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\EntityFramework.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\EntityFramework.xml
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\EntityFramework.SqlServer.xml

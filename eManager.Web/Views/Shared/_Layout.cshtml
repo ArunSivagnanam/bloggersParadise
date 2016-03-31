@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        <!--css -> boostrap.css-->
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <header>
+            <ul id="menu">
+                <li><a href="">Home</a></li>
+                <li>
+                    <a href="">About</a>
+                    <ul>
+                        <li><a href="">BloggersParadise</a></li>
+                        <li><a href="">Purpose</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Blog subjects</a>
+                    <ul>
+                        <li><a href="">Computer Security</a></li>
+                        <li><a href="">Spirituality</a></li>
+                        <li><a href="">Coding</a></li>
+                        <li><a href="">Something Cool</a></li>
+                        <li><a href="">Invisible Monkey</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact</a>
+                    <ul>
+                        <li><a href="">Online</a></li>
+                        <li><a href="">Right Here</a></li>
+                        <li><a href="">Somewhere Else</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -1,0 +1,9 @@
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\ClassLibrary1.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\ClassLibrary1.pdb
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Release\eManager.Domain.csprojResolveAssemblyReference.cache
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Release\ClassLibrary1.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Release\ClassLibrary1.pdb
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\EntityFramework.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\EntityFramework.xml
+C:\Users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Release\EntityFramework.SqlServer.xml
