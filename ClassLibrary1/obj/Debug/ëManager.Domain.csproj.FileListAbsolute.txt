@@ -1,5 +1,0 @@
-c:\users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\ClassLibrary1.dll
-c:\users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
-c:\users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Debug\ëManager.Domain.csprojResolveAssemblyReference.cache
-c:\users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Debug\ClassLibrary1.dll
-c:\users\krj\documents\visual studio 2013\Projects\eManger\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
