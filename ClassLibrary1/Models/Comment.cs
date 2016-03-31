@@ -20,6 +20,8 @@ namespace eManager.Domain
         public string Text { get; set; }
         public DateTime InsertionDate { get; set; }
 
+        public DateTime? ModificationDate { get; set; }
+
         [ForeignKey("User")]
         public virtual int? UserId { get; set; }
 

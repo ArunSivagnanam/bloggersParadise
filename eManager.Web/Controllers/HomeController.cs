@@ -21,19 +21,18 @@ namespace eManager.Web.Controllers
 
         public ActionResult Index()
         {
-           /** User u = new User()
+            /*
+
+            Comment u = new Comment()
             {
-                UserName = "bob2",
-                Password = "hdgh2",
-                UserType = "Admin2",
-                ProfileText = "hva saa der2",
-                Availability = true
+                Text = "hej",
+                InsertionDate = DateTime.Now
             };
 
-            context.Users.Add(u);
+            context.Comments.Add(u);
             context.SaveChanges();
-            */
             
+            */
 
             return View("Index");
         }

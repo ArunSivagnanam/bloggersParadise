@@ -189,6 +189,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers-API\PostLikeController.cs" />
+    <Compile Include="Controllers-API\PostController.cs" />
+    <Compile Include="Controllers-API\CommentsController.cs" />
+    <Compile Include="Controllers-API\UserController.cs" />
+    <Compile Include="Controllers-API\UserGroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
