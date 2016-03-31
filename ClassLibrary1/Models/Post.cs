@@ -21,6 +21,7 @@ namespace eManager.Domain
         public virtual int? UserId { get; set; }
         public string Title { get; set; }
         public DateTime CreationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
         public string Text { get; set; }
         public virtual ICollection<Postlike> Postlikes { get; set; }
         public virtual User User { get; set; }

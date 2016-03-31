@@ -12,10 +12,7 @@ namespace eManager.Web.Controllers_API
 
     public class CommentsController : ApiController
     {
-        DbModelContext context = new DbModelContext();
-
-        // GET api/<controller>
-     
+        
         [HttpGet]
         public List<Comment> getComments()
         {

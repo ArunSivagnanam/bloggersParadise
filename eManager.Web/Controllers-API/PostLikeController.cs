@@ -4,36 +4,74 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using eManager.Domain;
 
 namespace eManager.Web.Controllers_API
 {
     public class PostLikeController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+
+        [HttpGet]
+        public List<Postlike> getPostLikes()
         {
-            return new string[] { "value1", "value2" };
+            using (var context = new DbModelContext())
+            {
+                return context.Postlikes.ToList();
+            }
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+
+        [HttpGet]
+        public Postlike getPostLike(int postLikeId)
         {
-            return "value";
+            using (var context = new DbModelContext())
+            {
+                Postlike result = context.Postlikes.FirstOrDefault(p => p.PostLikeId == postLikeId);
+
+                return result;
+            }
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public Postlike addPostLike(Postlike postLikeData)
         {
+            using (var context = new DbModelContext())
+            {
+                
+                context.Postlikes.Add(postLikeData);
+                context.SaveChanges();
+
+            }
+            return postLikeData;
+
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+
+        [HttpPut]
+        public Postlike updatePost(Postlike postData)
         {
+            using (var context = new DbModelContext())
+            {
+                var original = context.Postlikes.FirstOrDefault(p => p.PostLikeId == postData.PostLikeId);
+
+                if (original != null)
+                {
+                    original.Dislike = postData.Dislike;
+                    original.Like = postData.Like;
+
+                    context.SaveChanges();
+                    return original;
+
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+
+
     }
 }
