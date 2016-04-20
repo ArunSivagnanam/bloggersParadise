@@ -23,7 +23,7 @@ namespace eManager.Domain
         public DateTime? ModificationDate { get; set; }
 
         [ForeignKey("User")]
-        public virtual int? UserId { get; set; }
+        public virtual int? UserId { get; set; } 
 
         [ForeignKey("Post")]
         public virtual int? PostId { get; set; }
