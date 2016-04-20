@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!-- 1. Load libraries -->
+    <script src="libs/es6-shim.min.js"></script>
+    <script src="libs/system-polyfills.js"></script>
+    <script src="libs/shims_for_IE.js"></script>
+    <script src="libs/angular2-polyfills.js"></script>
+    <script src="libs/system.js"></script>
+    <script src="libs/rx.js"></script>
+    <script src="libs/angular2.dev.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    defaultExtension: 'js'
+                }
+            }
+        });
+
+        System.import('app/boot')
+              .then(null, console.error.bind(console));
+    </script>
+
+
+</head>
+<body>
+    <h1>Woohooo</h1>
+    <h2>Demo of Angular 2 using ASP.NET 5 with Visual Studio 2015</h2>
+    <my-app>Loading...</my-app>  
+</body>
+</html>
