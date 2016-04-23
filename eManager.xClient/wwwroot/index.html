@@ -1,8 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <base href="/">
     <meta charset="utf-8" />
     <title></title>
+    <link rel="stylesheet" type="text/css" href="/libs/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/libs/css/flat/css/flat-ui.css">
 
     <!-- 1. Load libraries -->
     <script src="libs/es6-shim.min.js"></script>
@@ -12,6 +15,7 @@
     <script src="libs/system.js"></script>
     <script src="libs/rx.js"></script>
     <script src="libs/angular2.dev.js"></script>
+    <script src="libs/router.dev.js"></script>
     <!-- 2. Configure SystemJS -->
     <script>
         System.config({
@@ -25,9 +29,8 @@
         System.import('app/boot')
               .then(null, console.error.bind(console));
     </script>
-
-
 </head>
+
 <body>
     <h1>Woohooo</h1>
     <h2>Demo of Angular 2 using ASP.NET 5 with Visual Studio 2015</h2>
