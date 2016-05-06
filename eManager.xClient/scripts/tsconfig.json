@@ -7,7 +7,7 @@
     "noImplicitAny": false,
     "outDir": "../wwwroot/app/",
     "removeComments": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es5"
   },
   "exclude": [

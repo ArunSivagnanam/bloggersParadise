@@ -4,9 +4,81 @@
     <base href="/">
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" type="text/css" href="/libs/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/libs/css/flat/css/flat-ui.css">
+        <link rel="stylesheet" type="text/css" href="/libs/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/libs/css/flat/css/flat-ui.css">
+        <link rel="stylesheet" type="text/css" href="/libs/css/custom.css">
+   
+    <!-- Include Font Awesome. -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- Include Editor style. -->
+    <link href="/libs/css/froala/froala_editor.min.css" rel="stylesheet" type="text/css" />
+    <link href="/libs/css/froala/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Include Code Mirror style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+
+    <!-- Include Editor Plugins style. -->
+    <link rel="stylesheet" href="/libs/css/froala/plugins/char_counter.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/code_view.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/colors.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/emoticons.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/file.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/fullscreen.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/image.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins//image_manager.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/line_breaker.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/quick_insert.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/table.css">
+    <link rel="stylesheet" href="/libs/css/froala/plugins/video.css">
+
+    
+
+    <!-- Include jQuery. -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/bootstrap.js"></script>
+    <script type="text/javascript" src="/libs/moment.js"></script>
+    
+
+
+    <!-- 1. FROALA LIBARIES -->
+
+    <script type="text/javascript" src="/libs/froala_editor.min.js"></script>
+
+    <!-- Include Code Mirror. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+
+    <!-- Include Plugins. -->
+    <script type="text/javascript" src="libs/floalaJs/align.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/char_counter.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/code_beautifier.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/code_view.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/colors.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/emoticons.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/entities.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/file.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/font_family.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/font_size.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/fullscreen.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/image.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/image_manager.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/inline_style.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/link.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/lists.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/paragraph_format.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/paragraph_style.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/quick_insert.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/quote.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/save.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/url.min.js"></script>
+    <script type="text/javascript" src="libs/floalaJs/video.min.js"></script>
+
+    <!-- Include Language file if we want to use it. -->
+    <script type="text/javascript" src="libs/floalaJs/en_gb.js"></script>
+
+
+    <!-- 1. ANGULAR LIBARIES -->
     <!-- 1. Load libraries -->
     <script src="libs/es6-shim.min.js"></script>
     <script src="libs/system-polyfills.js"></script>
@@ -16,6 +88,9 @@
     <script src="libs/rx.js"></script>
     <script src="libs/angular2.dev.js"></script>
     <script src="libs/router.dev.js"></script>
+    <script src="libs/http.dev.js"></script>
+
+
     <!-- 2. Configure SystemJS -->
     <script>
         System.config({
@@ -32,8 +107,6 @@
 </head>
 
 <body>
-    <h1>Woohooo</h1>
-    <h2>Demo of Angular 2 using ASP.NET 5 with Visual Studio 2015</h2>
     <my-app>Loading...</my-app>  
 </body>
 </html>
