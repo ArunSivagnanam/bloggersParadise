@@ -13,9 +13,9 @@ declare var moment: any;
         <h2>{{SearchMethod}}</h2>
             <div class="col-lg-12"> 
               <div class="input-group"> 
-                <input type="text" [disabled]="inputDisabled" [placeholder]="inputPlaceHolder" class="form-control" aria-label="Text input with segmented button dropdown"> 
+                <input type="text" [(ngModel)]="inputText" [disabled]="inputDisabled" [placeholder]="inputPlaceHolder" class="form-control" aria-label="Text input with segmented button dropdown"> 
                 <div id="search-option-menu" class="input-group-btn"> 
-                  <button type="button" class="btn btn-default">Search</button> 
+                  <button type="button" (click) ="search();" class="btn btn-default">Search</button> 
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> 
                   </button> 
@@ -35,17 +35,27 @@ declare var moment: any;
                         <li><a (click)="setSearchMethod('Search by most dislikes');">Search by most dislikes</a></li> 
                        <li role="separator" class="divider"></li>     
                     </ul> 
-                </div> 
+                </div>
               </div> 
+              <p>{{inputBlogErrorText}}</p> 
             </div>
             <br><br><br>
 
-           <div class="list-group">
+            <div *ngIf="isLoading || blogsToShow();">
+
+                <img src="http://localhost:4202/libs/pictures/giphy.gif" alt="Loading" width="500" height="500">
+            </div>
+
+            <h3 *ngIf="blogsToShow();">Nothing to show for you my friend :( </h3>
+            
+
+
+           <div *ngIf="!isLoading" class="list-group">
               <div *ngFor="#blog of blogs" class="list-group-item">
                 <h4 class="list-group-item-heading">{{blog.title}}</h4>
                 <p>{{blog.description}}</p>
                 <p><a class="btn btn-primary btn-lg" (click)="navigateToPostComponent(blog.postId)" role="button">Read post</a></p>
-                <p> <b>Date created : </b> {{convertToMoment(blog.creationDate)}} <b> Last modified :</b>  {{convertToMoment(blog.modificationDate)}} <br> <b> Author : </b> <a href = "">{{blog.userName}}</a> </p>
+                <p> <b>Date created : </b> {{convertToMoment(blog.creationDate)}} <b> Last modified :</b>  {{convertToMoment(blog.modificationDate)}} <br> <b> Author : </b> <a (click)="viewUser(blog.userId, blog.userName);">{{blog.userName}}</a> </p>
               </div>
            </div>
 
@@ -62,6 +72,10 @@ export class SearchComponent implements OnInit {
     inputDisabled: Boolean;
     inputPlaceHolder: string;
     router: Router;
+    inputText: string;
+    inputBlogErrorText: string;
+
+    isLoading: Boolean;
 
     constructor(private blogService: BlogService, router: Router) {
         this.toggleMenu = false;
@@ -69,34 +83,56 @@ export class SearchComponent implements OnInit {
         this.inputDisabled = true;
         this.inputPlaceHolder = "";
         this.router = router;
+        this.inputText = "";
+        this.inputBlogErrorText = "";
+        this.isLoading = true;
     }
 
 
     navigateToPostComponent(postId) {
 
-        console.log("first " + postId);
+        //console.log("first " + postId);
         this.router.navigate(['Blogpost', { ID: postId }]);
 
     }
 
     ngOnInit() {
 
-        
-        var observable = this.blogService.getLatestTenBlogs();
+        if (this.blogService.isUserLoggedIn === false) {
 
-        var mee = this;
+            this.router.navigate(['Login']);
 
-        observable.subscribe(function (data) {
+        } else {
 
-            mee.blogs = data;
+            var observable = this.blogService.getLatestTenBlogs();
 
-        }, function (err) {
+            var mee = this;
 
-            console.log(err);
+            observable.subscribe(function (data) {
+
+                mee.blogs = data;
+                mee.isLoading = false;
+
+            }, function (err) {
+
+                if (err.status === 401) { mee.router.navigate(['Login']); }
+              
+            }
+
+            );
         }
+    }
 
-        );
-        
+    viewUser(userid, userName) {
+        this.router.navigate(['ViewProfile', { ID: userid, userName: userName }]);
+    }
+
+    blogsToShow() {
+        if (this.blogs.length === 0 && this.isLoading === false) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -116,24 +152,38 @@ export class SearchComponent implements OnInit {
         if (value === "Search latest posts") {
             this.inputDisabled = true;
             this.inputPlaceHolder = "";
+            this.inputBlogErrorText = "";
+            this.inputText = "";
         } else if (value === "Search by content"){
             this.inputDisabled = false;
             this.inputPlaceHolder = "Search in content";
+            this.inputText = "";
+            this.inputBlogErrorText = "";
         } else if (value === "Search before date") {
             this.inputDisabled = false;
-            this.inputPlaceHolder = "dd-mm-yyyy";
+            this.inputText = "";
+            this.inputPlaceHolder = "MM-DD-YYYY,HH:MM";
+            this.inputBlogErrorText = "";
         } else if (value === "Search after date") {
             this.inputDisabled = false;
-            this.inputPlaceHolder = "dd-mm-yyyy";
+            this.inputText = "";
+            this.inputPlaceHolder = "MM-DD-YYYY,HH:MM";
+            this.inputBlogErrorText = "";
         } else if (value === "Search by most likes") {
             this.inputDisabled = true;
+            this.inputText = "";
             this.inputPlaceHolder = "";
+            this.inputBlogErrorText = "";
         } else if (value === "Search by most comments") {
             this.inputDisabled = true;
+            this.inputText = "";
             this.inputPlaceHolder = "";
+            this.inputBlogErrorText = "";
         } else if (value === "Search by most dislikes") {
             this.inputDisabled = true;
             this.inputPlaceHolder = "";
+            this.inputText = "";
+            this.inputBlogErrorText = "";
         }
     }
 
@@ -143,10 +193,152 @@ export class SearchComponent implements OnInit {
     }
 
 
-    seach() {
+    search() {
+
+        this.isLoading = true;
+        
+        if (this.SearchMethod === "Search by content") {
+
+            var observable = this.blogService.searchBlogByContent(this.inputText);
+
+            var mee = this;
+
+            observable.subscribe(function (data) {
+
+                mee.blogs = data;
+                setTimeout(function () {
+                    mee.isLoading = false;
+                }, 1000);
+               
+
+            }, function (err) {
+                if (err.status === 401) { mee.router.navigate(['Login']); }
+               
+            });
+
+        } else if (this.SearchMethod === "Search by most comments") {
+
+            var observable = this.blogService.searchByNumberOfComments();
+            var mee = this;
+            observable.subscribe(function (data) {
+
+                mee.blogs = data;
+                setTimeout(function () {
+                    mee.isLoading = false;
+                }, 1000);
+
+            }, function (err) {
+                if (err.status === 401) { mee.router.navigate(['Login']); }
+              
+            });
+
+        } else if (this.SearchMethod === "Search by most likes") {
+
+            var observable = this.blogService.searchByNumberOfLikes();
+            var mee = this;
+            observable.subscribe(function (data) {
+
+                mee.blogs = data;
+                setTimeout(function () {
+                    mee.isLoading = false;
+                }, 1000);
+
+            }, function (err) {
+                if (err.status === 401) { mee.router.navigate(['Login']); }
+               
+            });
+
+        } else if (this.SearchMethod === "Search by most dislikes") {
+
+            var observable = this.blogService.searchByNumberOfDisLikes();
+            var mee = this;
+            observable.subscribe(function (data) {
+
+                mee.blogs = data;
+                setTimeout(function () {
+                    mee.isLoading = false;
+                }, 1000);
+
+            }, function (err) {
+                if (err.status === 401) { mee.router.navigate(['Login']); }
+                
+            });
+
+        } else if (this.SearchMethod === "Search before date") {
+
+        // time=05-05-2016,20:00
+            var formatedDate = moment(this.inputText).format('MM-DD-YYYY,HH:MM');
+
+            if (formatedDate === "Invalid date" || formatedDate === "Invalid%20date" ) {
+
+                this.inputBlogErrorText = "fuck af";
+
+                // print error
+            } else {
+                var observable = this.blogService.searchBeforeDate(formatedDate);
+                var mee = this;
+                observable.subscribe(function (data) {
+
+                    mee.blogs = data;
+                    setTimeout(function () {
+                        mee.isLoading = false;
+                    }, 1000);
+                    this.inputBlogErrorText = "";
+
+                }, function (err) {
+                    if (err.status === 401) { mee.router.navigate(['Login']); }
+                   
+                });
 
 
+            }
 
+        } else if (this.SearchMethod === "Search after date") {
+
+            // time=05-05-2016,20:00
+            var formatedDate = moment(this.inputText).format('MM-DD-YYYY,HH:MM');
+
+            console.log(formatedDate);
+            console.log("Invalid%20date");
+
+            if (formatedDate === "Invalid date" || formatedDate === "Invalid%20date" ) {
+
+                this.inputBlogErrorText = "fuck af";
+               
+            } else {
+
+                var observable = this.blogService.searchAfterDate(formatedDate);
+                var mee = this;
+                observable.subscribe(function (data) {
+
+                    mee.blogs = data;
+                    setTimeout(function () {
+                        mee.isLoading = false;
+                    }, 1000);
+                    this.inputBlogErrorText = "";
+
+                }, function (err) {
+                    if (err.status === 401) { mee.router.navigate(['Login']); }
+                   
+                });
+            }
+        } else if (this.SearchMethod === "Search latest posts") {
+
+            var observable = this.blogService.getLatestTenBlogs();
+                var mee = this;
+                observable.subscribe(function (data) {
+
+                    mee.blogs = data;
+                    setTimeout(function () {
+                        mee.isLoading = false;
+                    }, 1000);
+                    this.inputBlogErrorText = "";
+
+                }, function (err) {
+                    if (err.status === 401) { mee.router.navigate(['Login']); }
+                   
+                });
+        }
 
     }
 }

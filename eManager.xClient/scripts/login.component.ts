@@ -80,6 +80,20 @@ export class LoginComponent {
         this.router = router;
     }
 
+
+    ngAfterViewInit() {
+
+        var token = this.blogService.getToken();
+
+        if (token !== "") {
+            this.router.navigate(['Search']);
+            this.blogService.isUserLoggedIn = true;
+            this.blogService.emit("USER_LOGGED_IN");
+        }
+
+    };
+
+
     onSelect(view: string) {
         this.switchViewValue = view;
        
@@ -113,6 +127,8 @@ export class LoginComponent {
                     // gem token i coocie eller app cashe
                     localStorage.setItem('token', data.access_token);
                     mee.router.navigate(['Search']);
+                    mee.blogService.isUserLoggedIn = true;
+                    mee.blogService.emit("USER_LOGGED_IN");
 
                 }
 
@@ -161,6 +177,20 @@ export class LoginComponent {
                     
                     mee.setErrorMessage("");
                     mee.onSelect("login");
+
+
+                    var userInfo = {
+                        Description: ""
+                    };
+
+                    var observable = mee.blogService.adduserInfo(userInfo);
+
+                    observable.subscribe(function (data) {
+
+
+                    }, function (err) {
+                        console.log(err);
+                    });
 
                 }
 

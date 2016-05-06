@@ -24,7 +24,7 @@ namespace eManager.xClient
             app.UseIISPlatformHandler();
             app.UseMiddleware<DefaultFilesMiddleware>(new DefaultFilesOptions());
             app.UseMiddleware<StaticFileMiddleware>(new StaticFileOptions());
-           
+
         }
 
         // Entry point for the application.

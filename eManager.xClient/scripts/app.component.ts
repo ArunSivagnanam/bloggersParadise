@@ -14,13 +14,11 @@ import 'rxjs/Rx';
 @Component({
     selector: 'my-app',
     template: `
-              <nav>
-                <a [routerLink]="['Login']">Login</a>
-                <a [routerLink]="['Search']">Serach</a>
-                <a [routerLink]="['Profile']">Profile</a>
-                <a [routerLink]="['Blogpost']">Blogpost</a>
-                <a [routerLink]="['EditPost']">Edit post</a>,
-                <a [routerLink]="['ViewProfile']">View profile</a>
+              <nav *ngIf="isUserLoggedIn">
+                <a [routerLink]="['Search']">Search</a>
+                <a [routerLink]="['Profile']">My Profile</a>
+                <a [routerLink]="['EditPost']">Create Post</a>
+                <a (click)="logOut();"> Log out</a>
               </nav>
               <router-outlet></router-outlet>
               `,
@@ -28,7 +26,7 @@ import 'rxjs/Rx';
     providers: [BlogService, MockBlogService, HTTP_PROVIDERS]
 })
 @RouteConfig([
-        { path: '/login', name: 'Login', component: LoginComponent },
+        { path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true},
         { path: '/search', name: 'Search', component: SearchComponent },
         { path: '/profile', name: 'Profile', component: ProfileComponent },
         { path: '/blogpost', name: 'Blogpost', component: BlogPostComponent },
@@ -37,9 +35,47 @@ import 'rxjs/Rx';
 ])
 export class AppComponent {
 
-    constructor(router: Router) {
+    isUserLoggedIn: Boolean;
+
+
+    constructor(private router: Router, private blogService: BlogService) {
+
+        this.isUserLoggedIn = false;
+        
+    }
+
+
+    ngOnInit() {
+
+        var mee = this;
+        var callBack = function (eventType) {
+
+            if (eventType === "USER_LOGGED_IN") {
+                mee.isUserLoggedIn = mee.blogService.isUserLoggedIn;
+            }
+            if (eventType === "USER_LOGGED_OUT") {
+                mee.isUserLoggedIn = mee.blogService.isUserLoggedIn;
+            }
+        
+        }
+
+        this.blogService.registerListener(callBack);
+
+    }
+
+    logOut() {
+
+        localStorage.removeItem("token");
+
+        this.blogService.isUserLoggedIn = false;
+        this.blogService.emit("USER_LOGGED_OUT");
+        
+        this.router.navigate(['Login']);
 
 
     }
+
+
+  
 
 }

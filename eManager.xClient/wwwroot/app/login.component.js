@@ -22,6 +22,15 @@ var LoginComponent = (function () {
         this.retypePassword = "";
         this.router = router;
     }
+    LoginComponent.prototype.ngAfterViewInit = function () {
+        var token = this.blogService.getToken();
+        if (token !== "") {
+            this.router.navigate(['Search']);
+            this.blogService.isUserLoggedIn = true;
+            this.blogService.emit("USER_LOGGED_IN");
+        }
+    };
+    ;
     LoginComponent.prototype.onSelect = function (view) {
         this.switchViewValue = view;
     };
@@ -44,6 +53,8 @@ var LoginComponent = (function () {
                     // gem token i coocie eller app cashe
                     localStorage.setItem('token', data.access_token);
                     mee.router.navigate(['Search']);
+                    mee.blogService.isUserLoggedIn = true;
+                    mee.blogService.emit("USER_LOGGED_IN");
                 }
             }, function (err) {
                 mee.setErrorMessage(err._body);
@@ -68,6 +79,14 @@ var LoginComponent = (function () {
                     // redirect til serch component
                     mee.setErrorMessage("");
                     mee.onSelect("login");
+                    var userInfo = {
+                        Description: ""
+                    };
+                    var observable = mee.blogService.adduserInfo(userInfo);
+                    observable.subscribe(function (data) {
+                    }, function (err) {
+                        console.log(err);
+                    });
                 }
             }, function (err) {
                 console.log(err);

@@ -21,24 +21,45 @@ var mock_blog_service_1 = require('./mock.blog.service');
 var http_1 = require('angular2/http');
 require('rxjs/Rx');
 var AppComponent = (function () {
-    function AppComponent(router) {
+    function AppComponent(router, blogService) {
+        this.router = router;
+        this.blogService = blogService;
+        this.isUserLoggedIn = false;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var mee = this;
+        var callBack = function (eventType) {
+            if (eventType === "USER_LOGGED_IN") {
+                mee.isUserLoggedIn = mee.blogService.isUserLoggedIn;
+            }
+            if (eventType === "USER_LOGGED_OUT") {
+                mee.isUserLoggedIn = mee.blogService.isUserLoggedIn;
+            }
+        };
+        this.blogService.registerListener(callBack);
+    };
+    AppComponent.prototype.logOut = function () {
+        localStorage.removeItem("token");
+        this.blogService.isUserLoggedIn = false;
+        this.blogService.emit("USER_LOGGED_OUT");
+        this.router.navigate(['Login']);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n              <nav>\n                <a [routerLink]=\"['Login']\">Login</a>\n                <a [routerLink]=\"['Search']\">Serach</a>\n                <a [routerLink]=\"['Profile']\">Profile</a>\n                <a [routerLink]=\"['Blogpost']\">Blogpost</a>\n                <a [routerLink]=\"['EditPost']\">Edit post</a>,\n                <a [routerLink]=\"['ViewProfile']\">View profile</a>\n              </nav>\n              <router-outlet></router-outlet>\n              ",
+            template: "\n              <nav *ngIf=\"isUserLoggedIn\">\n                <a [routerLink]=\"['Search']\">Search</a>\n                <a [routerLink]=\"['Profile']\">My Profile</a>\n                <a [routerLink]=\"['EditPost']\">Create Post</a>\n                <a (click)=\"logOut();\"> Log out</a>\n              </nav>\n              <router-outlet></router-outlet>\n              ",
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [blog_service_1.BlogService, mock_blog_service_1.MockBlogService, http_1.HTTP_PROVIDERS]
         }),
         router_1.RouteConfig([
-            { path: '/login', name: 'Login', component: login_component_1.LoginComponent },
+            { path: '/login', name: 'Login', component: login_component_1.LoginComponent, useAsDefault: true },
             { path: '/search', name: 'Search', component: search_component_1.SearchComponent },
             { path: '/profile', name: 'Profile', component: profile_component_1.ProfileComponent },
             { path: '/blogpost', name: 'Blogpost', component: blogpost_component_1.BlogPostComponent },
             { path: '/editPost', name: 'EditPost', component: editBlogPost_component_1.EditBlogPostComponent },
             { path: '/viewProfile', name: 'ViewProfile', component: viewProfile_component_1.ViewProfileComponent }
         ]), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, blog_service_1.BlogService])
     ], AppComponent);
     return AppComponent;
 }());
